@@ -7,12 +7,8 @@ const env = require('dotenv')
 env.config()
 
 
-
 const app = express();
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 const groqApiKey = process.env.GROQ_API_KEY;
 const client = new Groq({ apiKey: groqApiKey });
 
@@ -38,19 +34,6 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-
-    if (username === 'admin' && password === 'admin') {
-
-        res.status(200).json({ message: 'Login successful' });
-    } else {
-
-        res.status(401).json({ message: 'Unauthorized' });
-    }
-});
 
 app.post('/sms', async (req, res) => {
     const incomingMessage = req.body.Body ? req.body.Body.toLowerCase() : '';
