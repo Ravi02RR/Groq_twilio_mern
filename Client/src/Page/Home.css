@@ -1,0 +1,22 @@
+.test {
+    text-align: center;
+    background-color: skyblue;
+}
+
+.test > a {
+    
+    color: red;
+    padding: 4px;
+    border-radius: 5px;
+    animation: blink 0.5s infinite alternate;
+    text-decoration: none;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
