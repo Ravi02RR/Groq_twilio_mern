@@ -3,10 +3,13 @@ const { MessagingResponse } = require('twilio').twiml;
 const { Groq } = require('groq-sdk');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const env = require('dotenv')
+env.config()
+
 
 const app = express();
 app.use(cors());
-const groqApiKey = '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';
+const groqApiKey = process.env.GROQ_API_KEY;
 const client = new Groq({ apiKey: groqApiKey });
 
 
