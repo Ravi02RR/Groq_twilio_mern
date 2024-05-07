@@ -34,6 +34,20 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+
+    if (username === 'admin' && password === 'admin') {
+
+        res.status(200).json({ message: 'Login successful' });
+    } else {
+
+        res.status(401).json({ message: 'Unauthorized' });
+    }
+});
+
 app.post('/sms', async (req, res) => {
     const incomingMessage = req.body.Body ? req.body.Body.toLowerCase() : '';
     const profileName = req.body.ProfileName || 'Unknown';
