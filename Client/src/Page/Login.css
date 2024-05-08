@@ -1,0 +1,38 @@
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .otp-button, .verify-button {
+    background-color: #DCF8C6;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .otp-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .otp-input {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .logged-in-message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+  }
+  

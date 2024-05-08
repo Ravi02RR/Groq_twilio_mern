@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "groq-sdk": "^0.3.3",
     "mongoose": "^8.3.4",
+    "nodemailer": "^6.9.13",
     "twilio": "^5.0.4"
   }
 }

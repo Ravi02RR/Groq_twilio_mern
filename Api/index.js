@@ -2,15 +2,81 @@ const express = require('express');
 const { MessagingResponse } = require('twilio').twiml;
 const { Groq } = require('groq-sdk');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
 const env = require('dotenv')
 env.config()
-
-
-const app = express();
-app.use(cors());
 const groqApiKey = process.env.GROQ_API_KEY;
 const client = new Groq({ apiKey: groqApiKey });
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+const generateOTP = () => {
+    const otpLength = 6;
+    const digits = '0123456789';
+    let otp = '';
+
+    for (let i = 0; i < otpLength; i++) {
+        otp += digits[Math.floor(Math.random() * 10)];
+    }
+
+    return otp;
+};
+
+const sendOTPByEmail = (otp, recipientEmail) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.Admin_mail,
+            pass: process.env.Admin_password
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.Admin_mail,
+        to: recipientEmail,
+        subject: 'OTP Verification',
+        text: `Your OTP for verification is: ${otp}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+};
+
+let storedOTP;
+
+app.get('/getotp', (req, res) => {
+    const recipientEmail = process.env.UserMail;
+
+    if (!recipientEmail) {
+        return res.status(400).send('Recipient email is required.');
+    }
+
+    const otp = generateOTP();
+    sendOTPByEmail(otp, recipientEmail);
+    storedOTP = otp;
+
+    res.send('OTP sent successfully.');
+});
+
+app.post('/verify', (req, res) => {
+    const userOTP = req.body?.otp;
+
+    if (userOTP !== storedOTP) {
+        return res.status(400).json({ success: false, message: 'Invalid OTP' });
+    }
+    storedOTP = undefined;
+    res.status(200).json({ success: true, message: 'OTP verification successful'});
+});
+
 
 
 const messageSchema = new mongoose.Schema({
@@ -19,6 +85,8 @@ const messageSchema = new mongoose.Schema({
     replyMessage: String,
     fromNumber: String,
 }, { timestamps: true });
+
+
 
 
 const Message = mongoose.model('Message', messageSchema);

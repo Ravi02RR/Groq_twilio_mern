@@ -1,0 +1,37 @@
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.error-content {
+  text-align: center;
+}
+
+.error-content h1 {
+  color: red;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.error-content p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #DCF8C6;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.error-content button:hover {
+  text-decoration: underline;
+}
