@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
-
 const generateOTP = () => {
     const otpLength = 6;
     const digits = '0123456789';
@@ -27,7 +26,7 @@ const generateOTP = () => {
     return otp;
 };
 
-const sendOTPByEmail = (otp, recipientEmail) => {
+const sendOTPByEmail = (otp, recipientEmail, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -40,14 +39,21 @@ const sendOTPByEmail = (otp, recipientEmail) => {
         from: process.env.Admin_mail,
         to: recipientEmail,
         subject: 'OTP Verification',
-        text: `Your OTP for verification is: ${otp}`
+        html: `
+            <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+                <h2 style="text-align: center; color: #333;">OTP Verification</h2>
+                <p style="margin-bottom: 20px;">Your OTP for verification is: <strong>${otp}</strong></p>
+            </div>
+        `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error:', error);
+            res.status(500).send('Error sending OTP email.');
         } else {
             console.log('Email sent:', info.response);
+            res.send('OTP sent successfully.');
         }
     });
 };
@@ -62,11 +68,12 @@ app.get('/getotp', (req, res) => {
     }
 
     const otp = generateOTP();
-    sendOTPByEmail(otp, recipientEmail);
-    storedOTP = otp;
+    sendOTPByEmail(otp, recipientEmail, res);
 
-    res.send('OTP sent successfully.');
+    storedOTP = otp;
 });
+
+
 
 app.post('/verify', (req, res) => {
     const userOTP = req.body?.otp;
@@ -75,7 +82,7 @@ app.post('/verify', (req, res) => {
         return res.status(400).json({ success: false, message: 'Invalid OTP' });
     }
     storedOTP = undefined;
-    res.status(200).json({ success: true, message: 'OTP verification successful'});
+    res.status(200).json({ success: true, message: 'OTP verification successful' });
 });
 
 
