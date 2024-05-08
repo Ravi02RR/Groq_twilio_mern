@@ -9,9 +9,10 @@ env.config()
 const groqApiKey = process.env.GROQ_API_KEY;
 const client = new Groq({ apiKey: groqApiKey });
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 
 const generateOTP = () => {

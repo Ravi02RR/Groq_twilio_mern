@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get('https://api-ravi02rr-ravi02rrs-projects.vercel.app/messages');
+        const response = await axios.get('https://api-ravi02rrs-projects.vercel.app/messages');
         setMessages(response.data);
       } catch (error) {
         console.error('Error fetching messages:', error);
