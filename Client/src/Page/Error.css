@@ -35,3 +35,15 @@
 .error-content button:hover {
   text-decoration: underline;
 }
+.error-content input[type="password"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.error-content input[type="password"]:focus {
+  border-color: #007bff;
+}
