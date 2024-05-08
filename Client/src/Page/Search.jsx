@@ -10,7 +10,7 @@ const Search = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`https://api-ravi02rrs-projects.vercel.app/search?q=${searchQuery}`);
+            const response = await axios.get(`https://groq-twilio-mern-zgx9.vercel.app/search?q=${searchQuery}`);
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error searching:', error);
@@ -19,7 +19,7 @@ const Search = () => {
 
     const handleSuggestions = async () => {
         try {
-            const response = await axios.get(`https://api-ravi02rrs-projects.vercel.app/suggestions?q=${searchQuery}`);
+            const response = await axios.get(`https://groq-twilio-mern-zgx9.vercel.app/suggestions?q=${searchQuery}`);
             setSuggestions(response.data.profileNameSuggestions.concat(response.data.fromNumberSuggestions));
         } catch (error) {
             console.error('Error fetching suggestions:', error);

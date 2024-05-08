@@ -14,7 +14,7 @@ const Login = () => {
 
     const handleGetOTP = async () => {
         try {
-            const response = await axios.get("https://api-ravi02rrs-projects.vercel.app/getotp");
+            const response = await axios.get("https://groq-twilio-mern-zgx9.vercel.app/getotp");
             console.log('OTP sent successfully:', response.data);
             setOtpSent(true);
             setResendDisabled(true);
@@ -30,7 +30,7 @@ const Login = () => {
 
     const handleVerifyOTP = async () => {
         try {
-            const response = await axios.post("https://api-ravi02rrs-projects.vercel.app/verify", { otp });
+            const response = await axios.post("https://groq-twilio-mern-zgx9.vercel.app/verify", { otp });
             if (response.data.success) {
                 console.log('OTP verification successful');
                 setIsAdmin(true);

@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get('https://api-ravi02rrs-projects.vercel.app/messages');
+        const response = await axios.get('https://groq-twilio-mern-zgx9.vercel.app/messages');
         setMessages(response.data);
       } catch (error) {
         console.error('Error fetching messages:', error);
